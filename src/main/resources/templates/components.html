@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+  <html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="scripts">
+      <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+      <script th:src="@{/js/popper.min.js}"></script>
+      <script th:src="@{/js/bootstrap.min.js}"></script>
+      <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    </div>
+
+    <div class="container-fluid" th:fragment="menu">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" th:href="@{/}">Study Info</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent" sec:authorize="isAuthenticated()">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" id="homeMenu" aria-current="page" th:href="@{/}">Home</a>
+              </li>
+              <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','TEACHER')">
+                <a class="nav-link" id="teacherMenu" th:href="@{/teacher}">Teacher</a>
+              </li>
+              <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-link" id="userMenu" th:href="@{/users}">User</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <br><br>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup</title>
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div th:insert="components::menu"></div>
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    <h1 class="display-5 fw-bold">Signup</h1>
+    <div class="alert alert-danger" role="alert" th:if="${messageType} == 'error'">
+      <span th:text="${message}"></span>
+    </div>
+    <form action="#" method="post" th:action="@{/signup}" th:object="${users}">
+      <div class="mb-3 row">
+        <label for="username" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="username" th:field="*{username}" value="email@example.com" required>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="password" th:field="*{password}" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="authority">Authority</label>
+        <select class="form-select" th:field="*{authority.id}" id="authority" required>
+          <option th:each="authority: ${authorities}" th:value="${authority.id}" th:text="${authority.name.replace('ROLE_', '')}"></option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit">Submit</button>
+      <a th:href="@{/}" class="btn btn-warning">Cancel</a>
+    </form>
+  </div>
+</div>
+<div th:insert="components::scripts"></div>
+</body>
+</html>
